@@ -51,18 +51,20 @@ def get_credentials():
         print('Storing credentials to ' + credential_path)
     return credentials
 
+
 def get_thread(service):
     """
     Get a specified thread.
     TODO: Get the thread_id from the URL Load.
     """
-    thread_id = '15f3625d1fec23a4'
+    thread_id = ''
     return service.users().threads().get(
         userId='me',
         id=thread_id,
         format='metadata',
         metadataHeaders=['To', 'From', 'Cc', 'Bcc'],
     ).execute()
+
 
 def get_record(thread, position):
     """
@@ -77,11 +79,13 @@ def get_record(thread, position):
         if record.get('historyId') == position
     ][0]
 
+
 def get_first_message(thread):
     """Retrieve the first record from a thread."""
     return ''.join(str(x) for x in
                    min([[int(historyId) for historyId in messages.get('historyId')]
                         for messages in thread.get('messages')]))
+
 
 def get_email_addresses(record):
     """Get the email addresses in a given thread record."""
@@ -90,6 +94,7 @@ def get_email_addresses(record):
         emails.update(field.get('value').split(','))
     return emails
 
+
 def compare_records(first, latest):
     """
     Tell the difference between 2 sets of records' email addresses.
@@ -97,6 +102,7 @@ def compare_records(first, latest):
     emails_missing = get_email_addresses(first) - get_email_addresses(latest)
     if emails_missing:
         print(emails_missing)
+
 
 def main():
     """Shows basic usage of the Gmail API.
