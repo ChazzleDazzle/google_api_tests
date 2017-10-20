@@ -1,0 +1,18 @@
+<html>
+<head>
+    <title>Test JSON</title>
+    <script type="text/javascript" src="client_secret.json"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+    <h1 id="json_print"></h1>
+    <script type="text/javascript">
+        $.getJSON("client_secret.json", function(json){
+            var client_data = json.web;
+            var client_id = client_data.client_id;
+            $('#json_print').html(client_id);            
+        });
+
+    </script>
+</body>
+</html>
